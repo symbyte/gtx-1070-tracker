@@ -1,6 +1,8 @@
 const bluebird = require('bluebird');
 const request = bluebird.promisifyAll(require('request'));
 const fs = bluebird.promisifyAll(require('fs'));
+const nodemailer = require('nodemailer');
+const transporter = nodemailer.createTransport(`smtps://stevenchambersexe%40gmail.com:${process.argv[2]}@smtp.gmail.com`)
 
 const neweggEndpoint = 'http://apis.rtainc.co/newegg/item/';
 
@@ -28,14 +30,26 @@ function printResults(responses) {
   console.log('In stock:\n')
   jsonBodies.filter(res => res.in_stock)
     .forEach(printItem);
-
-  console.log('Sold out:\n');
-  jsonBodies.filter(res => !res.in_stock)
-    .forEach(printItem);
 }
 
 function printItem(item) {
   console.log(`${item.name}\n\turl: ${item.url}\n`)
+  sendMail(item);
+}
+
+function sendMail(item) {
+  const mailOpts = {
+    from: '"you" <yourRunningDeamon@domain.com>',
+    to: "stevenchambers.exe@gmail.com",
+    subject: 'GTX 1070 available',
+    text: `Buy this card now! name: ${item.name} url: ${item.url}`
+  }
+  transporter.sendMail(mailOpts, (err, info) => {
+    if (err) {
+      return console.log(err);
+    }
+    console.log(`message sent: ${info.response}`);
+  })
 }
 
 function getItemStockReport() {
@@ -46,6 +60,7 @@ function getItemStockReport() {
 }
 
 getItemStockReport();
+setInterval(getItemStockReport, 5*60*1000);
 
 exports.myHandler = getItemStockReport;
 

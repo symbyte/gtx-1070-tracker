@@ -1,0 +1,3 @@
+echo "enter your email password"
+read -s pass
+node index.js $pass
