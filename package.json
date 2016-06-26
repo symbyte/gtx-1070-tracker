@@ -1,0 +1,11 @@
+{
+  "name": "newegg-stockcheck",
+  "version": "1.0.0",
+  "description": "check the stock on items on newegg",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Steven Chambers",
+  "license": "ISC"
+}
