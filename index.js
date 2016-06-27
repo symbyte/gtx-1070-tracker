@@ -42,7 +42,7 @@ function sendMail(item) {
     from: '"you" <yourRunningDeamon@domain.com>',
     to: "stevenchambers.exe@gmail.com",
     subject: 'GTX 1070 available',
-    text: `Buy this card now! name: ${item.name} url: ${item.url}`
+    text: `Buy this card now! \nname: ${item.name} \nurl: ${item.url}`
   }
   transporter.sendMail(mailOpts, (err, info) => {
     if (err) {
