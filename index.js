@@ -60,7 +60,7 @@ function getItemStockReport() {
 }
 
 getItemStockReport();
-setInterval(getItemStockReport, 5*60*1000);
+setInterval(getItemStockReport, 60*1000);
 
 exports.myHandler = getItemStockReport;
 
